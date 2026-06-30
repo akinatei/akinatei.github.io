@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Daniel Ahgo — Software Engineer &amp; Full-Stack</title>
+<meta name="description" content="Daniel Akitei Ahgo — full-stack software engineer in Abuja, Nigeria. Python/Django, DRF, real-time systems, and secure payment flows.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#F7F6F2; --paper-2:#FFFFFF; --ink:#14161A; --muted:#5C6068;
+    --line:#E5E3DB; --line-2:#D8D6CC;
+    --accent:#1F4FE0; --accent-deep:#12348F; --accent-soft:#E9EEFD;
+    --live:#E0791A;
+    --code-bg:#15171C; --code-line:#23262E;
+    --key:#9DB2F2; --str:#E6A35C; --punc:#6B7180; --bool:#5BC8A6;
+    --disp:'Space Grotesk',sans-serif; --body:'Inter',sans-serif; --mono:'JetBrains Mono',monospace;
+    --maxw:1080px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{font-family:var(--body);background:var(--paper);color:var(--ink);line-height:1.6;-webkit-font-smoothing:antialiased}
+  a{color:inherit;text-decoration:none}
+  ::selection{background:var(--accent);color:#fff}
+
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 28px}
+
+  /* eyebrow / endpoint labels */
+  .eyebrow{font-family:var(--mono);font-size:12.5px;letter-spacing:.02em;color:var(--muted);display:flex;align-items:center;gap:9px;margin-bottom:22px}
+  .eyebrow .m{color:var(--accent);font-weight:500}
+  .eyebrow::after{content:"";flex:1;height:1px;background:var(--line-2);margin-left:6px}
+
+  /* nav */
+  nav{position:sticky;top:0;z-index:50;background:rgba(247,246,242,.82);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+  .nav-in{display:flex;align-items:center;justify-content:space-between;height:62px}
+  .brand{display:flex;align-items:center;gap:11px;font-family:var(--disp);font-weight:600;font-size:16px}
+  .mono-mark{width:30px;height:30px;border-radius:7px;background:var(--ink);color:var(--paper);display:grid;place-items:center;font-family:var(--mono);font-size:13px;font-weight:500}
+  .nav-links{display:flex;gap:28px;align-items:center}
+  .nav-links a{font-size:14px;color:var(--muted);transition:color .18s}
+  .nav-links a:hover{color:var(--ink)}
+  .nav-cta{font-family:var(--mono);font-size:12.5px;color:var(--ink);border:1px solid var(--line-2);padding:7px 13px;border-radius:7px;display:flex;align-items:center;gap:8px;transition:.18s}
+  .nav-cta:hover{border-color:var(--ink)}
+  .dot{width:8px;height:8px;border-radius:50%;background:var(--live);position:relative}
+  .dot::after{content:"";position:absolute;inset:-4px;border-radius:50%;border:1px solid var(--live);opacity:.5;animation:pulse 2.4s ease-out infinite}
+  @keyframes pulse{0%{transform:scale(.6);opacity:.7}100%{transform:scale(1.8);opacity:0}}
+  .menu-btn{display:none;font-family:var(--mono);font-size:13px;background:none;border:1px solid var(--line-2);border-radius:7px;padding:7px 11px;cursor:pointer;color:var(--ink)}
+
+  /* hero */
+  .hero{padding:72px 0 64px}
+  .hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:52px;align-items:center}
+  .hero h1{font-family:var(--disp);font-weight:700;font-size:clamp(40px,6.2vw,68px);line-height:1.02;letter-spacing:-.02em}
+  .hero .role{font-family:var(--disp);font-weight:500;font-size:clamp(18px,2.4vw,23px);color:var(--accent);margin-top:14px}
+  .hero p.lede{color:var(--muted);font-size:16.5px;max-width:46ch;margin-top:20px}
+  .facts{display:flex;flex-wrap:wrap;gap:8px;margin-top:26px;font-family:var(--mono);font-size:12px}
+  .facts span{border:1px solid var(--line-2);border-radius:20px;padding:5px 12px;color:var(--muted)}
+  .cta-row{display:flex;flex-wrap:wrap;gap:12px;margin-top:30px}
+  .btn{font-family:var(--body);font-size:14px;font-weight:500;padding:11px 19px;border-radius:9px;display:inline-flex;align-items:center;gap:9px;transition:.18s;border:1px solid transparent}
+  .btn-primary{background:var(--ink);color:var(--paper)}
+  .btn-primary:hover{background:var(--accent)}
+  .btn-ghost{border-color:var(--line-2);color:var(--ink)}
+  .btn-ghost:hover{border-color:var(--ink)}
+
+  /* code card */
+  .codecard{background:var(--code-bg);border-radius:14px;overflow:hidden;box-shadow:0 24px 60px -28px rgba(20,22,26,.5);border:1px solid var(--code-line)}
+  .codebar{display:flex;align-items:center;gap:8px;padding:13px 16px;border-bottom:1px solid var(--code-line)}
+  .codebar i{width:11px;height:11px;border-radius:50%;display:inline-block}
+  .codebar .req{margin-left:10px;font-family:var(--mono);font-size:11.5px;color:#7E8595}
+  .codebar .ok{margin-left:auto;font-family:var(--mono);font-size:11px;color:var(--bool);border:1px solid #2c3a35;border-radius:5px;padding:2px 7px}
+  pre{padding:20px 20px 24px;overflow-x:auto;font-family:var(--mono);font-size:13.5px;line-height:1.85;color:#C9CDD6}
+  .k{color:var(--key)} .s{color:var(--str)} .p{color:var(--punc)} .b{color:var(--bool)}
+
+  /* sections */
+  section{padding:60px 0;border-top:1px solid var(--line)}
+  .sec-head{font-family:var(--disp);font-weight:600;font-size:clamp(24px,3.4vw,33px);letter-spacing:-.015em;margin-bottom:34px}
+
+  /* experience timeline */
+  .tl{display:grid;gap:0}
+  .job{display:grid;grid-template-columns:160px 1fr;gap:28px;padding:26px 0;border-bottom:1px solid var(--line);position:relative}
+  .job:last-child{border-bottom:0}
+  .job .when{font-family:var(--mono);font-size:12.5px;color:var(--muted)}
+  .job .when .now{color:var(--accent)}
+  .job h3{font-family:var(--disp);font-weight:600;font-size:18.5px}
+  .job .org{color:var(--accent-deep);font-weight:500;font-size:14.5px;margin:3px 0 12px}
+  .job ul{list-style:none;display:grid;gap:8px}
+  .job li{position:relative;padding-left:18px;color:#3a3d44;font-size:14.7px}
+  .job li::before{content:"";position:absolute;left:0;top:10px;width:6px;height:6px;border-radius:1px;background:var(--accent);transform:rotate(45deg)}
+
+  /* projects */
+  .proj-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}
+  .card{background:var(--paper-2);border:1px solid var(--line);border-radius:13px;padding:22px 22px 20px;transition:.2s;display:flex;flex-direction:column}
+  .card:hover{border-color:var(--line-2);transform:translateY(-3px);box-shadow:0 18px 40px -28px rgba(20,22,26,.4)}
+  .card .top{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:9px}
+  .card h3{font-family:var(--disp);font-weight:600;font-size:17.5px;line-height:1.25}
+  .live-tag{display:inline-flex;align-items:center;gap:7px;font-family:var(--mono);font-size:10.5px;color:var(--live);white-space:nowrap}
+  .card .kind{font-family:var(--mono);font-size:11.5px;color:var(--accent);margin-bottom:11px}
+  .card p{color:#3a3d44;font-size:14.3px;flex:1}
+  .tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:16px}
+  .tag{font-family:var(--mono);font-size:11px;color:var(--muted);background:var(--paper);border:1px solid var(--line);border-radius:5px;padding:3px 8px}
+
+  /* skills */
+  .skills{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+  .skill-row{border:1px solid var(--line);border-radius:11px;padding:16px 18px;background:var(--paper-2)}
+  .skill-row .label{font-family:var(--mono);font-size:12px;color:var(--accent);margin-bottom:10px}
+  .skill-row .items{display:flex;flex-wrap:wrap;gap:6px}
+  .skill-row .items span{font-size:13px;color:#3a3d44;background:var(--paper);border:1px solid var(--line);border-radius:6px;padding:4px 9px}
+
+  /* education + certs */
+  .two{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+  .panel{border:1px solid var(--line);border-radius:13px;padding:24px;background:var(--paper-2)}
+  .panel h3{font-family:var(--disp);font-weight:600;font-size:17px;margin-bottom:4px}
+  .panel .sub{color:var(--muted);font-size:14px}
+  .panel .yr{font-family:var(--mono);font-size:12px;color:var(--accent);margin-top:6px}
+  .cert-list{list-style:none;display:grid;gap:14px}
+  .cert-list li{display:flex;gap:12px;align-items:flex-start}
+  .cert-list .ix{font-family:var(--mono);font-size:12px;color:var(--accent);margin-top:2px}
+  .cert-list .ct{font-size:14.5px}
+  .cert-list .ct small{display:block;color:var(--muted);font-size:12.5px;font-family:var(--mono)}
+
+  /* contact */
+  .contact{text-align:center;padding:78px 0 30px}
+  .contact .eyebrow{justify-content:center}
+  .contact .eyebrow::after{display:none}
+  .contact h2{font-family:var(--disp);font-weight:700;font-size:clamp(30px,5vw,52px);letter-spacing:-.02em;line-height:1.05}
+  .contact p{color:var(--muted);max-width:48ch;margin:18px auto 0;font-size:16px}
+  .contact .links{display:flex;flex-wrap:wrap;gap:12px;justify-content:center;margin-top:30px}
+  .contact .links a{font-family:var(--mono);font-size:13px;border:1px solid var(--line-2);border-radius:9px;padding:11px 17px;display:flex;align-items:center;gap:9px;transition:.18s;background:var(--paper-2)}
+  .contact .links a:hover{border-color:var(--ink);transform:translateY(-2px)}
+
+  footer{border-top:1px solid var(--line);padding:26px 0 40px}
+  .foot-in{display:flex;align-items:center;justify-content:space-between;font-family:var(--mono);font-size:12px;color:var(--muted);flex-wrap:wrap;gap:10px}
+
+  /* reveal */
+  .reveal{opacity:0;transform:translateY(16px);transition:opacity .6s ease,transform .6s ease}
+  .reveal.in{opacity:1;transform:none}
+
+  :focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:4px}
+
+  @media (max-width:860px){
+    .hero-grid{grid-template-columns:1fr;gap:38px}
+    .proj-grid,.skills,.two{grid-template-columns:1fr}
+    .job{grid-template-columns:1fr;gap:8px}
+    .nav-links{display:none}
+    .nav-links.open{display:flex;position:absolute;top:62px;left:0;right:0;flex-direction:column;background:var(--paper);border-bottom:1px solid var(--line);padding:18px 28px;gap:18px}
+    .menu-btn{display:block}
+  }
+  @media (prefers-reduced-motion:reduce){
+    *{animation:none!important;transition:none!important}
+    html{scroll-behavior:auto}
+    .reveal{opacity:1;transform:none}
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap nav-in">
+    <a class="brand" href="#top"><span class="mono-mark">DA</span> Daniel Ahgo</a>
+    <div class="nav-links" id="navlinks">
+      <a href="#experience">Experience</a>
+      <a href="#projects">Projects</a>
+      <a href="#skills">Skills</a>
+      <a href="#contact">Contact</a>
+      <a class="nav-cta" href="#contact"><span class="dot"></span>Available for work</a>
+    </div>
+    <button class="menu-btn" id="menuBtn" aria-label="Toggle menu" aria-expanded="false">menu</button>
+  </div>
+</nav>
+
+<header class="hero" id="top">
+  <div class="wrap hero-grid">
+    <div>
+      <h1>Daniel&nbsp;Ahgo</h1>
+      <div class="role">Backend &amp; full-stack engineer</div>
+      <p class="lede">I build secure, scalable APIs and real-time systems — wallet and payment flows, live bidding and chat, and personalised feeds — mostly in Python, Django, and DRF.</p>
+      <div class="facts">
+        <span>Abuja, Nigeria</span>
+        <span>Python · Django · DRF</span>
+        <span>React · Next.js · TS</span>
+        <span>B.Tech Physics</span>
+      </div>
+      <div class="cta-row">
+        <a class="btn btn-primary" href="#projects">View projects</a>
+        <a class="btn btn-ghost" href="mailto:ahgodaniel@gmail.com">Get in touch</a>
+      </div>
+    </div>
+
+    <div class="codecard" aria-hidden="true">
+      <div class="codebar">
+        <i style="background:#E25C5C"></i><i style="background:#E0A93C"></i><i style="background:#5BC8A6"></i>
+        <span class="req">GET /api/engineer/daniel</span>
+        <span class="ok">200 OK</span>
+      </div>
+<pre><span class="p">{</span>
+  <span class="k">"name"</span><span class="p">:</span> <span class="s">"Daniel Akitei Ahgo"</span><span class="p">,</span>
+  <span class="k">"role"</span><span class="p">:</span> <span class="s">"Backend &amp; Full-Stack Engineer"</span><span class="p">,</span>
+  <span class="k">"core"</span><span class="p">:</span> <span class="p">[</span><span class="s">"Python"</span><span class="p">,</span> <span class="s">"Django"</span><span class="p">,</span> <span class="s">"DRF"</span><span class="p">],</span>
+  <span class="k">"focus"</span><span class="p">:</span> <span class="p">[</span><span class="s">"secure APIs"</span><span class="p">,</span> <span class="s">"real-time"</span><span class="p">,</span> <span class="s">"payments"</span><span class="p">],</span>
+  <span class="k">"realtime"</span><span class="p">:</span> <span class="b">true</span><span class="p">,</span>
+  <span class="k">"location"</span><span class="p">:</span> <span class="s">"Abuja, NG"</span><span class="p">,</span>
+  <span class="k">"status"</span><span class="p">:</span> <span class="s">"available"</span>
+<span class="p">}</span></pre>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <section id="experience">
+    <p class="eyebrow"><span class="m">GET</span> /experience</p>
+    <h2 class="sec-head">Where I've worked</h2>
+    <div class="tl">
+
+      <article class="job reveal">
+        <div class="when">2025 — <span class="now">Present</span></div>
+        <div>
+          <h3>Full-Stack Software Engineer</h3>
+          <div class="org">Dexter Cyber Labs · Abuja</div>
+          <ul>
+            <li>Design and build RESTful APIs in Django REST Framework powering production frontend applications.</li>
+            <li>Engineer real-time features with Django Channels and WebSockets — live bidding and in-app chat with delivery and read receipts.</li>
+            <li>Implement secure transactional flows: wallet balances, simulated payments, and atomic debit/credit with row-level locking to prevent race conditions.</li>
+            <li>Build personalised content feeds with weighted relevance scoring, and integrate Google and Apple Sign-In with JWT auth.</li>
+          </ul>
+        </div>
+      </article>
+
+      <article class="job reveal">
+        <div class="when">2022 — 2025</div>
+        <div>
+          <h3>Software Developer</h3>
+          <div class="org">Avian Tech · Abuja</div>
+          <ul>
+            <li>Led programming training sessions and mentored junior developers.</li>
+            <li>Developed and deployed full-stack web applications for clients.</li>
+          </ul>
+        </div>
+      </article>
+
+      <article class="job reveal">
+        <div class="when">2019 — 2021</div>
+        <div>
+          <h3>STEM Tutor</h3>
+          <div class="org">Sparklearn · Abuja</div>
+          <ul>
+            <li>Prepared students for WAEC, JAMB, and international (ACT) examinations in science and mathematics.</li>
+          </ul>
+        </div>
+      </article>
+
+      <article class="job reveal">
+        <div class="when">2023 — <span class="now">Present</span></div>
+        <div>
+          <h3>ICT Facilitator &amp; Instructor <span style="font-family:var(--mono);font-size:11px;color:var(--muted);font-weight:400">· volunteer</span></h3>
+          <div class="org">Darlez Care Home · Abuja</div>
+          <ul>
+            <li>Teach foundational computer science — HTML, CSS, and Scratch — to children aged 5–13.</li>
+            <li>Guide students in building interactive games and projects, fostering early problem-solving skills.</li>
+          </ul>
+        </div>
+      </article>
+
+    </div>
+  </section>
+
+  <section id="projects">
+    <p class="eyebrow"><span class="m">GET</span> /projects</p>
+    <h2 class="sec-head">Selected work</h2>
+    <div class="proj-grid">
+
+      <article class="card reveal">
+        <div class="top"><h3>Wardrobe Swap</h3><span class="live-tag"><span class="dot"></span>real-time</span></div>
+        <div class="kind">Fashion marketplace API</div>
+        <p>Backend for a peer-to-peer fashion marketplace: listings, bidding with counter-offers, wallet-based payments, real-time bid and chat over WebSockets, and a personalised feed.</p>
+        <div class="tags"><span class="tag">Django</span><span class="tag">DRF</span><span class="tag">Channels</span><span class="tag">Redis</span><span class="tag">PostgreSQL</span></div>
+      </article>
+
+      <article class="card reveal">
+        <div class="top"><h3>Pot of Food &amp; BravePay</h3><span class="live-tag"><span class="dot"></span>real-time</span></div>
+        <div class="kind">Dispute resolution system</div>
+        <p>Real-time dispute resolution platform enabling instant WebSocket communication between vendors and customers, integrated into both the consumer and vendor apps.</p>
+        <div class="tags"><span class="tag">Django</span><span class="tag">DRF</span><span class="tag">Channels</span><span class="tag">Redis</span><span class="tag">Celery</span></div>
+      </article>
+
+      <article class="card reveal">
+        <div class="top"><h3>PAP Accounting System</h3></div>
+        <div class="kind">Financial workflow</div>
+        <p>Secure financial workflow for voucher management and retirement approvals, with OTP verification and bank reconciliation modules.</p>
+        <div class="tags"><span class="tag">Python</span><span class="tag">Django</span><span class="tag">PostgreSQL</span><span class="tag">Celery</span><span class="tag">Docker</span></div>
+      </article>
+
+      <article class="card reveal">
+        <div class="top"><h3>PAP Database Application</h3></div>
+        <div class="kind">Delegate management</div>
+        <p>Centralised delegate-management database with automated background tasks and a containerised deployment.</p>
+        <div class="tags"><span class="tag">Django</span><span class="tag">AJAX</span><span class="tag">Celery</span><span class="tag">Redis</span><span class="tag">Docker</span></div>
+      </article>
+
+      <article class="card reveal">
+        <div class="top"><h3>BravePay Admin Dashboard</h3></div>
+        <div class="kind">Admin interface</div>
+        <p>High-performance administrative interface for real-time data visualisation and financial reporting.</p>
+        <div class="tags"><span class="tag">Next.js</span><span class="tag">TypeScript</span><span class="tag">Tailwind</span></div>
+      </article>
+
+      <article class="card reveal">
+        <div class="top"><h3>Bulk SMS Gateway</h3></div>
+        <div class="kind">Messaging frontend</div>
+        <p>Bulk-messaging interface with CSV parsing, duplicate filtering, and live delivery-status reporting.</p>
+        <div class="tags"><span class="tag">Next.js</span><span class="tag">TypeScript</span><span class="tag">PapaParse</span></div>
+      </article>
+
+      <article class="card reveal" style="grid-column:1/-1">
+        <div class="top"><h3>mosesandlaura.com — Wedding Platform</h3></div>
+        <div class="kind">Serverless web app</div>
+        <p>A custom serverless wedding platform using Google Sheets as a lightweight, real-time database.</p>
+        <div class="tags"><span class="tag">TypeScript</span><span class="tag">Google Sheets API</span><span class="tag">CSS</span></div>
+      </article>
+
+    </div>
+  </section>
+
+  <section id="skills">
+    <p class="eyebrow"><span class="m">GET</span> /skills</p>
+    <h2 class="sec-head">Tools I work with</h2>
+    <div class="skills">
+      <div class="skill-row reveal"><div class="label">languages</div><div class="items"><span>Python</span><span>JavaScript</span><span>TypeScript</span><span>Java</span><span>C++</span><span>PHP</span><span>SQL</span><span>HTML</span><span>CSS</span></div></div>
+      <div class="skill-row reveal"><div class="label">backend</div><div class="items"><span>Django</span><span>DRF</span><span>Django Channels</span><span>FastAPI</span><span>Flask</span><span>Node.js</span><span>Express</span><span>GraphQL</span></div></div>
+      <div class="skill-row reveal"><div class="label">frontend</div><div class="items"><span>React</span><span>Next.js</span><span>SvelteKit</span><span>Tailwind CSS</span></div></div>
+      <div class="skill-row reveal"><div class="label">databases</div><div class="items"><span>PostgreSQL</span><span>MySQL</span><span>MongoDB</span><span>SQLite</span><span>Redis</span></div></div>
+      <div class="skill-row reveal"><div class="label">real-time &amp; async</div><div class="items"><span>WebSockets</span><span>Celery</span><span>Redis queues</span></div></div>
+      <div class="skill-row reveal"><div class="label">ai / ml</div><div class="items"><span>Scikit-learn</span><span>TensorFlow</span><span>PyTorch</span><span>NLP</span><span>LLMs (OpenAI, Gemini)</span><span>Rasa</span></div></div>
+      <div class="skill-row reveal" style="grid-column:1/-1"><div class="label">cloud &amp; devops</div><div class="items"><span>AWS</span><span>GCP</span><span>Firebase</span><span>Docker</span><span>Git</span><span>GitHub</span><span>Netlify</span><span>Heroku</span></div></div>
+    </div>
+  </section>
+
+  <section id="education">
+    <p class="eyebrow"><span class="m">GET</span> /education</p>
+    <h2 class="sec-head">Education &amp; certifications</h2>
+    <div class="two">
+      <div class="panel reveal">
+        <h3>B.Tech, Physics</h3>
+        <div class="sub">Ondo State University of Science and Technology, Okitipupa</div>
+        <div class="yr">2016</div>
+      </div>
+      <div class="panel reveal">
+        <ul class="cert-list">
+          <li><span class="ix">01</span><span class="ct">Web Development &amp; JavaScript Programming<small>Udemy</small></span></li>
+          <li><span class="ix">02</span><span class="ct">Data Analysis &amp; Machine Learning<small>Codebasics · Udacity</small></span></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<section class="contact" id="contact">
+  <div class="wrap">
+    <p class="eyebrow"><span class="m">POST</span> /contact</p>
+    <h2>Let's build something<br>reliable.</h2>
+    <p>I'm open to backend and full-stack roles and freelance work. The fastest way to reach me is email.</p>
+    <div class="links">
+      <a href="mailto:ahgodaniel@gmail.com">ahgodaniel@gmail.com</a>
+      <a href="tel:+2348065315511">+234 806 531 5511</a>
+      <a href="https://github.com/akinatei" target="_blank" rel="noopener">github.com/akinatei</a>
+      <a href="https://linkedin.com/in/danielahgo" target="_blank" rel="noopener">linkedin.com/in/danielahgo</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap foot-in">
+    <span>Daniel Akitei Ahgo · Abuja, Nigeria</span>
+    <span>Built with HTML, CSS &amp; a little JS · <span id="yr"></span></span>
+  </div>
+</footer>
+
+<script>
+  document.getElementById('yr').textContent = new Date().getFullYear();
+
+  var btn = document.getElementById('menuBtn');
+  var links = document.getElementById('navlinks');
+  btn.addEventListener('click', function(){
+    var open = links.classList.toggle('open');
+    btn.setAttribute('aria-expanded', open);
+    btn.textContent = open ? 'close' : 'menu';
+  });
+  links.addEventListener('click', function(e){
+    if(e.target.tagName === 'A'){ links.classList.remove('open'); btn.textContent='menu'; btn.setAttribute('aria-expanded',false); }
+  });
+
+  if(!window.matchMedia('(prefers-reduced-motion: reduce)').matches){
+    var obs = new IntersectionObserver(function(entries){
+      entries.forEach(function(en){ if(en.isIntersecting){ en.target.classList.add('in'); obs.unobserve(en.target); } });
+    }, {threshold:.12, rootMargin:'0px 0px -40px 0px'});
+    document.querySelectorAll('.reveal').forEach(function(el){ obs.observe(el); });
+  }
+</script>
+</body>
+</html>
